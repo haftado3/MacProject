@@ -20,9 +20,23 @@ class viewMaker{
                 else {
                     buttondynamic.alignment = .center
                 }
-                buttondynamic.isEnabled = false
-                buttondynamic.isHidden = false
-                buttondynamic.toolTip = "whatsup"
+                
+                if(SJ.getDisablity(n: n)){
+                    buttondynamic.isEnabled = false
+                }
+                else{
+                    buttondynamic.isEnabled = true
+                }
+                
+                if(SJ.getVisiblity(n: n)){
+                    buttondynamic.isHidden = false
+                }
+                else {
+                    buttondynamic.isHidden = true
+                }
+                if (SJ.getTooltip(n: n) != ""){
+                    buttondynamic.toolTip = SJ.getTooltip(n: n)
+                }
                 window.contentView?.addSubview(buttondynamic)
             }
             // other components will be place here

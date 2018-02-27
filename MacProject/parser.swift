@@ -9,9 +9,12 @@ class swift_json_parser{
         var componentType = ""
         var text = ""
         var textAlign = ""
+        var visible = true
+        var disabled = false
+        var tooltip = ""
     }
     private var current : Int = 0
-    private(set) var items = [item](repeating:item(width: 0, height: 0, locationx: 0, locationy: 0, componentType: "", text: "", textAlign: ""), count:100)
+    private(set) var items = [item](repeating:item(width: 0, height: 0, locationx: 0, locationy: 0, componentType: "", text: "", textAlign: "", visible: true, disabled: false,tooltip: ""), count:100)
     
     public func parser(json : Dictionary<String,Any>){
         for(key , value) in json{
@@ -42,7 +45,15 @@ class swift_json_parser{
                 if (childkey == "TextAlignment"){
                     items[current].textAlign = value as! String
                 }
-                
+                if (childkey == "Visible"){
+                    items[current].visible = value as! Bool
+                }
+                if (childkey == "Disabled"){
+                    items[current].disabled = value as! Bool
+                }
+                if (childkey == "Tooltip"){
+                    items[current].tooltip  = value as! String
+                }
             }
         }
         current += 1
@@ -73,6 +84,15 @@ class swift_json_parser{
     }
     func getAlign(n : Int) -> String{
         return items[n].textAlign
+    }
+    func getVisiblity(n : Int) -> Bool{
+        return items[n].visible
+    }
+    func getDisablity(n : Int) -> Bool{
+        return items[n].disabled
+    }
+    func getTooltip(n : Int) -> String {
+        return items[n].tooltip
     }
 }
 
