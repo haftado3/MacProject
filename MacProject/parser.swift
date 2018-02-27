@@ -1,6 +1,8 @@
 
 import Foundation
+let MAXCONTROLS = 100
 class swift_json_parser{
+    
     struct item {
         var width = 0
         var height = 0
@@ -12,9 +14,10 @@ class swift_json_parser{
         var visible = true
         var disabled = false
         var tooltip = ""
+        var child : Array<String> = []
     }
     private var current : Int = 0
-    private(set) var items = [item](repeating:item(width: 0, height: 0, locationx: 0, locationy: 0, componentType: "", text: "", textAlign: "", visible: true, disabled: false,tooltip: ""), count:100)
+    private(set) var items = [item](repeating:item(width: 0, height: 0, locationx: 0, locationy: 0, componentType: "", text: "", textAlign: "", visible: true, disabled: false,tooltip: "",child:[]), count:MAXCONTROLS)
     
     public func parser(json : Dictionary<String,Any>){
         for(key , value) in json{
@@ -53,6 +56,9 @@ class swift_json_parser{
                 }
                 if (childkey == "Tooltip"){
                     items[current].tooltip  = value as! String
+                }
+                if (childkey == "Child"){
+                    items[current].child = value as! Array<String>
                 }
             }
         }
@@ -93,6 +99,9 @@ class swift_json_parser{
     }
     func getTooltip(n : Int) -> String {
         return items[n].tooltip
+    }
+    func getChild(n: Int) ->Array<String>{
+        return items[n].child
     }
 }
 

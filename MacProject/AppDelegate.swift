@@ -16,21 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.level = NSWindow.Level.mainMenu
         window.isOpaque = false
         window.title = "json parser"
-        let contentView = window.contentView!
-        let buttonExit = NSButton.init(title: "Exit", target: self, action: #selector(AppDelegate.myClose(_:)))
-        buttonExit.frame.origin = CGPoint(x : 20 ,y : 20)
-        buttonExit.frame.size = CGSize(width: 100, height: 35)
-        contentView.addSubview(buttonExit)
-        
-        let buttonJson = NSButton.init(title: "Json", target: self, action: #selector(AppDelegate.myAction(_:)))
-        buttonJson.frame.origin = CGPoint(x : 100,y : 100)
-        buttonJson.frame.size = CGSize(width: 90, height: 35)
-        contentView.addSubview(buttonJson)
-        window.center()
-        window.makeKeyAndOrderFront(window)
-    }
-    
-    @objc func myAction(_ sender:AnyObject){
+        //---------
         if let path = Bundle.main.path(forResource: "index", ofType: "json"){
             do{
                 let data = try Data(contentsOf: URL(fileURLWithPath: path),options: .alwaysMapped)
@@ -46,6 +32,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         else {
             print("Invalid filename/path for json.")
         }
+        //---------
+        window.center()
+        window.makeKeyAndOrderFront(window)
     }
     
     @objc func myClose(_ sender:AnyObject){

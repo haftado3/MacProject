@@ -1,4 +1,4 @@
-﻿{
+{
   "lbl1": {
     "ComponentType": "label",
     "Name": "lblName",
@@ -43,7 +43,7 @@
     "LocationX": 400,
     "LocationY": 90,
     "Width": 150,
-    "Height": 35,
+    "Height": 25,
     "TextAlignment": "right",
     "Visible": true,
     "Disabled": false,
@@ -87,7 +87,7 @@
     "NewGroup": true,
     "Text": "یک",
     "TextAlignment": "right",
-    "Width": 125
+    "Width": 40
   },
 
   "radiobutton2": {
@@ -96,7 +96,7 @@
     "Text": "دو",
     "LocationX": 650,
     "LocationY": 180,
-    "Width": 70,
+    "Width": 40,
     "Height": 30,
     "TextAlignment": "right",
     "Visible": true,
@@ -113,7 +113,7 @@
     "Text": "جانباز",
     "TextAlignment": "right",
     "Visible": true,
-    "Width": 60
+    "Width": 50
   },
   "chkbox2": {
     "ComponentType": "checkbox",
@@ -125,7 +125,7 @@
     "Text": "موجی",
     "TextAlignment": "right",
     "Visible": true,
-    "Width": 60
+    "Width": 50
   },
   "chkbox3": {
     "ComponentType": "checkbox",
@@ -137,7 +137,7 @@
     "Text": "چپ دست",
     "TextAlignment": "right",
     "Visible": true,
-    "Width": 90
+    "Width": 70
   },
   "img1": {
     "ComponentType": "image",
