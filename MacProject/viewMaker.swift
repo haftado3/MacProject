@@ -146,19 +146,71 @@ class viewMaker{
                 dynamicCheckbox.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
                 window.contentView?.addSubview(dynamicCheckbox)
             }
-            if(SJ.getComponentType(n: n)=="treeview"){
-                //not working yet
-                let dynamicTree = NSOutlineView.init()
-                dynamicTree.selectionHighlightStyle = .sourceList
-                dynamicTree.floatsGroupRows = false
-                dynamicTree.indentationPerLevel = 16
-                dynamicTree.indentationMarkerFollowsCell = false
-                dynamicTree.wantsLayer = true
+            if(SJ.getComponentType(n: n)=="grid"){
+                //a scroll view which holds tree
+                let scrlView = NSScrollView.init()
+                scrlView.setFrameOrigin(NSPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n)))
+                scrlView.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
+                scrlView.borderType = .bezelBorder
+                scrlView.hasVerticalScroller = true
+                scrlView.hasHorizontalScroller = true
+                scrlView.autohidesScrollers = false
+                
+                //a tree view
+                let treeView  = NSOutlineView.init()
+                treeView.translatesAutoresizingMaskIntoConstraints = false
+                treeView.enclosingScrollView?.contentView.scroll(to: NSMakePoint(0, 0))
+                treeView.enclosingScrollView?.verticalScroller?.floatValue = 0.0
+                treeView.selectionHighlightStyle = .sourceList
+                treeView.allowsColumnReordering = true
+                treeView.allowsColumnReordering = true
+                
+                //a table column
+                let column = NSTableColumn.init()
+                column.title = "column 0"
                 
                 
-                dynamicTree.setFrameOrigin(NSPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n)))
-                dynamicTree.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
-                window.contentView?.addSubview(dynamicTree)
+                //adding column to table
+                treeView.addTableColumn(column)
+                
+                //adding tree to scroll view
+                scrlView.documentView = treeView
+                
+                //adding scroll view to window
+                window.contentView?.addSubview(scrlView)
+            }
+            if(SJ.getComponentType(n: n) == "loading")
+            {
+                let loading = NSProgressIndicator.init()
+                loading.setFrameOrigin(NSPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n)))
+                loading.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
+                loading.style = .spinning
+                loading.usesThreadedAnimation = true
+                loading.isIndeterminate = true
+                loading.isHidden = false
+                loading.startAnimation(nil)
+                window.contentView?.addSubview(loading)
+            }
+            if(SJ.getComponentType(n: n) == "search")
+            {
+                let search = NSSearchField.init()
+                search.setFrameOrigin(NSPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n)))
+                search.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
+                window.contentView?.addSubview(search)
+            }
+            if(SJ.getComponentType(n: n) == "richedit"){
+                let rich = NSTextField.init()
+                
+                
+                // set layout of this guy to wraps layout and allow rich text and undo
+                
+                
+                rich.setFrameOrigin(NSPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n)))
+                rich.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
+                rich.lineBreakMode = .byWordWrapping
+                rich.usesSingleLineMode = false
+                
+                window.contentView?.addSubview(rich)
             }
             // other components will be place here
         }
