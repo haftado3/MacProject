@@ -199,18 +199,27 @@ class viewMaker{
                 window.contentView?.addSubview(search)
             }
             if(SJ.getComponentType(n: n) == "richedit"){
-                let rich = NSTextField.init()
+                let scrlView = NSScrollView.init()
+                //i may need to change this totally for adding horizontally resizable
+                scrlView.setFrameOrigin(NSPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n)))
+                scrlView.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
+                scrlView.hasVerticalScroller = true
+                scrlView.autohidesScrollers = false
+                scrlView.borderType = .bezelBorder
                 
+                let rich = NSTextView.init()
+                rich.isRichText = true
+                rich.maxSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
+                rich.isHorizontallyResizable = true
                 
-                // set layout of this guy to wraps layout and allow rich text and undo
+                scrlView.documentView = rich
+                window.contentView?.addSubview(scrlView)
                 
-                
-                rich.setFrameOrigin(NSPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n)))
-                rich.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
-                rich.lineBreakMode = .byWordWrapping
-                rich.usesSingleLineMode = false
-                
-                window.contentView?.addSubview(rich)
+                // for NSTextEdit use this guys
+                //rich.cell?.wraps = true
+                //rich.cell?.isScrollable = true
+                //rich.usesSingleLineMode = false
+                //rich.lineBreakMode = .byWordWrapping
             }
             // other components will be place here
         }
