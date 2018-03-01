@@ -105,37 +105,45 @@ class viewMaker{
                 
             }
             if(SJ.getComponentType(n: n) == "groupbox"){
-                let dynamicBox = NSBox.init()
+                let dynamicBox = NSBox()
                 
                 dynamicBox.frame.origin = CGPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n))
                 dynamicBox.frame.size = CGSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n))
                 dynamicBox.title = SJ.getText(n: n)
-                dynamicBox.boxType = NSBox.BoxType.primary
                 dynamicBox.borderType = NSBorderType.bezelBorder
+                
                 
                 let array = SJ.getChild(n: n)
                 var x = 0
+                let btnCell = NSButtonCell() //this is making a prototype for nsmatrix
+                btnCell.title = SJ.getName(n: n)
+                btnCell.setButtonType(NSButton.ButtonType.radio)
+                btnCell.imagePosition = .imageRight
+                btnCell.alignment = .right
+                
+                let matrixRect : NSRect = NSMakeRect(0,0,dynamicBox.frame.width ,dynamicBox.frame.height - 25)
+                let mymatrix = NSMatrix(frame: matrixRect, mode: .radioModeMatrix, prototype: (btnCell as NSCell) , numberOfRows: 3, numberOfColumns: 1)
+                dynamicBox.addSubview(mymatrix)
+                let cellArray = mymatrix.cells
                 for i in array{
-                    
-                    let dynamicRadio = NSButton.init(radioButtonWithTitle: i, target: self, action: nil)
-                    dynamicRadio.setFrameOrigin(NSPoint(x: 0, y: x*20))
-                    
-                    dynamicBox.addSubview(dynamicRadio)
+                    cellArray[x].title = i
                     x += 1
                 }
                 window.contentView?.addSubview(dynamicBox)
             }
             if(SJ.getComponentType(n: n) == "radiobutton"){
-                let dynamicRadio = NSButton.init()
-                dynamicRadio.setButtonType(NSButton.ButtonType.radio)
-                dynamicRadio.imagePosition = .imageRight
-                dynamicRadio.title = SJ.getText(n: n)
+
+                let btnCell = NSButtonCell()
+                btnCell.title = "watermelons"
+                btnCell.setButtonType(NSButton.ButtonType.radio)
+                let matrixRect : NSRect = NSMakeRect(CGFloat(SJ.getLocationX(n: n)), CGFloat(SJ.getLocationY(n: n)), CGFloat(SJ.getWidth(n: n)), CGFloat(SJ.getHeight(n: n)))
+                let mymatrix = NSMatrix(frame: matrixRect, mode: .radioModeMatrix, prototype: (btnCell as NSCell) , numberOfRows: 3, numberOfColumns: 1)
+                window.contentView?.addSubview(mymatrix)
+                let cellArray = mymatrix.cells
+                cellArray[0].title = "1"
+                cellArray[1].title = "2"
+                cellArray[2].title = "3"
                 
-                dynamicRadio.setFrameOrigin(NSPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n)))
-                dynamicRadio.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
-                
-                
-                window.contentView?.addSubview(dynamicRadio)
             }
             if(SJ.getComponentType(n: n)=="checkbox"){
                 let dynamicCheckbox = NSButton.init()
@@ -167,11 +175,14 @@ class viewMaker{
                 
                 //a table column
                 let column = NSTableColumn.init()
-                column.title = "column 0"
-                
+                column.title = "grid view"
+                let column2 = NSTableColumn()
+                column2.title = "col 2"
+                column2.width = 100
                 
                 //adding column to table
                 treeView.addTableColumn(column)
+                treeView.addTableColumn(column2)
                 
                 //adding tree to scroll view
                 scrlView.documentView = treeView
@@ -200,6 +211,7 @@ class viewMaker{
             }
             if(SJ.getComponentType(n: n) == "richedit"){
                 let scrlView = NSScrollView.init()
+                
                 //i may need to change this totally for adding horizontally resizable
                 scrlView.setFrameOrigin(NSPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n)))
                 scrlView.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
@@ -211,7 +223,7 @@ class viewMaker{
                 rich.isRichText = true
                 rich.maxSize = NSMakeSize(CGFloat(Float.greatestFiniteMagnitude), CGFloat(Float.greatestFiniteMagnitude))
                 rich.isHorizontallyResizable = true
-                
+                rich.string = "rich text ..."
                 scrlView.documentView = rich
                 window.contentView?.addSubview(scrlView)
                 
@@ -249,8 +261,61 @@ class viewMaker{
                 window.contentView?.addSubview(line)
             }
             if(SJ.getComponentType(n: n) == "statusbar"){
-                
+                //this is gonna take a while to work on
+//                let btn = NSButton(title: "test", target: self, action: nil)
+//                window.contentView?.addSubview(btn)
+//                let controller = NSViewController()
+//
+//                controller.view = NSView(frame: CGRect(x: CGFloat(100), y: CGFloat(50), width: CGFloat(200), height: CGFloat(150)))
+//                let popover = NSPopover()
+//                popover.contentViewController = controller
+//                popover.contentSize = controller.view.frame.size
+//                popover.behavior = .transient
+//                popover.animates = true
+//                let txt = NSTextField(frame: controller.view.frame)
+//                txt.stringValue = "testing popover"
+//                //txt.textColor = NSColor.blue.withAlphaComponent(0.45)
+//                controller.view.addSubview(txt)
+//                //txt.sizeToFit()
+//                
+//                popover.show(relativeTo: btn.bounds, of: btn as NSView, preferredEdge: NSRectEdge.maxY)
             }
+            if(SJ.getComponentType(n: n) == "listbox"){
+                // need to solve this issue
+                let view = NSScrollView(frame: NSMakeRect(200, 200, 100, 100))
+                let list = NSOutlineView()
+                let listcol1 = NSTableColumn()
+                
+                list.allowsTypeSelect = true
+                listcol1.isEditable = true
+                list.addTableColumn(listcol1)
+                listcol1.width = 100
+                listcol1.title = "list view"
+                list.editColumn(0, row: 0, with: nil, select: true)
+                
+                
+                list.reloadData()
+                
+                view.documentView = list
+                window.contentView?.addSubview(view)
+            }
+            if(SJ.getComponentType(n: n) == "trackbar")
+            {
+                let slider = NSSlider(frame: NSMakeRect(CGFloat(SJ.getLocationX(n: n)), CGFloat(SJ.getLocationY(n: n)), CGFloat(SJ.getWidth(n: n)), CGFloat(SJ.getHeight(n: n))))
+                
+                window.contentView?.addSubview(slider)
+            }
+            if(SJ.getComponentType(n: n) == "timepicker"){
+                let timepicker = NSDatePicker(frame: NSMakeRect(CGFloat(SJ.getLocationX(n: n)), CGFloat(SJ.getLocationY(n: n)), CGFloat(SJ.getWidth(n: n)), CGFloat(SJ.getHeight(n: n))))
+                window.contentView?.addSubview(timepicker)
+            }
+            if(SJ.getComponentType(n: n) == "progressbar"){
+                let progressbar = NSLevelIndicator(frame: NSMakeRect(CGFloat(SJ.getLocationX(n: n)), CGFloat(SJ.getLocationY(n: n)), CGFloat(SJ.getWidth(n: n)), CGFloat(SJ.getHeight(n: n))))
+                progressbar.doubleValue = 2
+                progressbar.maxValue = 10
+                window.contentView?.addSubview(progressbar)
+            }
+            
             // other components will be place here
         }
     }

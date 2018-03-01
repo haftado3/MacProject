@@ -79,7 +79,7 @@
   "radiobutton1": {
     "ComponentType": "radiobutton",
     "Disabled": false,
-    "Height": 30,
+    "Height": 60,
     "LocationX": 650,
     "LocationY": 150,
     "Visible": true,
@@ -90,19 +90,6 @@
     "Width": 40
   },
 
-  "radiobutton2": {
-    "ComponentType": "radiobutton",
-    "Name": "radio2",
-    "Text": "دو",
-    "LocationX": 650,
-    "LocationY": 180,
-    "Width": 40,
-    "Height": 30,
-    "TextAlignment": "right",
-    "Visible": true,
-    "Disabled": false,
-    "NewGroup": false
-  },
   "chkbox1": {
     "ComponentType": "checkbox",
     "Disabled": false,
@@ -257,7 +244,7 @@
     "Text": "my timepicker1",
     "LocationX": 580,
     "LocationY": 350,
-    "Width": 140,
+    "Width": 170,
     "Height": 30,
     "TextAlignment": "right",
     "Tooltip": "time-picker",
