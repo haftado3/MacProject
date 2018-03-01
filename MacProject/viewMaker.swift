@@ -121,29 +121,47 @@ class viewMaker{
                 btnCell.imagePosition = .imageRight
                 btnCell.alignment = .right
                 
+//                var posx = 0
+//                if(dynamicBox.frame.width > 100){
+//                    posx = Int(dynamicBox.frame.width - (100 as CGFloat))
+//                }
+//                else {
+//                    posx = 0
+//                }
                 let matrixRect : NSRect = NSMakeRect(0,0,dynamicBox.frame.width ,dynamicBox.frame.height - 25)
-                let mymatrix = NSMatrix(frame: matrixRect, mode: .radioModeMatrix, prototype: (btnCell as NSCell) , numberOfRows: 3, numberOfColumns: 1)
+                let mymatrix = NSMatrix(frame: matrixRect, mode: .radioModeMatrix, prototype: (btnCell as NSCell) , numberOfRows: array.endIndex, numberOfColumns: 1)
                 dynamicBox.addSubview(mymatrix)
                 let cellArray = mymatrix.cells
+                if(dynamicBox.frame.width>100){
+                    mymatrix.cellSize.width = dynamicBox.frame.width - 15
+                }
+                
                 for i in array{
                     cellArray[x].title = i
                     x += 1
                 }
+                
                 window.contentView?.addSubview(dynamicBox)
             }
             if(SJ.getComponentType(n: n) == "radiobutton"){
 
                 let btnCell = NSButtonCell()
-                btnCell.title = "watermelons"
                 btnCell.setButtonType(NSButton.ButtonType.radio)
+                btnCell.title = "watermelons"
+                btnCell.imagePosition = .imageRight
+                btnCell.alignment = .right
+                
+                
                 let matrixRect : NSRect = NSMakeRect(CGFloat(SJ.getLocationX(n: n)), CGFloat(SJ.getLocationY(n: n)), CGFloat(SJ.getWidth(n: n)), CGFloat(SJ.getHeight(n: n)))
+                
                 let mymatrix = NSMatrix(frame: matrixRect, mode: .radioModeMatrix, prototype: (btnCell as NSCell) , numberOfRows: 3, numberOfColumns: 1)
+                mymatrix.sizeToFit()
                 window.contentView?.addSubview(mymatrix)
+                //mymatrix.cellSize = NSSize(width: 200, height: 20)
                 let cellArray = mymatrix.cells
-                cellArray[0].title = "1"
+                cellArray[0].title = "this is not working "
                 cellArray[1].title = "2"
                 cellArray[2].title = "3"
-                
             }
             if(SJ.getComponentType(n: n)=="checkbox"){
                 let dynamicCheckbox = NSButton.init()

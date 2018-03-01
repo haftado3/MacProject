@@ -59,7 +59,7 @@
     "Text": "نوع رزم",
     "TextAlignment": "right",
     "Visible": true,
-    "Width": 80,
+    "Width": 100,
     "Child": ["چریکی","ضربت"]
   },
 
@@ -69,12 +69,12 @@
     "Height": 80,
     "LocationX": 100,
     "LocationY": 50,
-    "Name": "groupbox1",
+    "Name": "groupbox2",
     "Text": "نوع سلاح",
     "TextAlignment": "right",
     "Visible": true,
     "Width": 140,
-    "Child": ["کارت پلاستیک","فندق"]
+    "Child": ["کارت پلاستیکی","فندق"]
   },
   "radiobutton1": {
     "ComponentType": "radiobutton",
