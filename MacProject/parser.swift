@@ -15,9 +15,10 @@ class swift_json_parser{
         var disabled = false
         var tooltip = ""
         var child : Array<String> = []
+        var name = ""
     }
     private var current : Int = 0
-    private(set) var items = [item](repeating:item(width: 0, height: 0, locationx: 0, locationy: 0, componentType: "", text: "", textAlign: "", visible: true, disabled: false,tooltip: "",child:[]), count:MAXCONTROLS)
+    private(set) var items = [item](repeating:item(width: 0, height: 0, locationx: 0, locationy: 0, componentType: "", text: "", textAlign: "", visible: true, disabled: false,tooltip: "",child:[] , name: ""), count:MAXCONTROLS)
     
     public func parser(json : Dictionary<String,Any>){
         for(key , value) in json{
@@ -59,6 +60,9 @@ class swift_json_parser{
                 }
                 if (childkey == "Child"){
                     items[current].child = value as! Array<String>
+                }
+                if (childkey == "Name"){
+                    items[current].name = value as! String
                 }
             }
         }
@@ -102,6 +106,9 @@ class swift_json_parser{
     }
     func getChild(n: Int) ->Array<String>{
         return items[n].child
+    }
+    func getName(n: Int) -> String {
+        return items[n].name
     }
 }
 

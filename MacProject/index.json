@@ -418,10 +418,10 @@
   "syslink1": {
     "ComponentType": "syslink",
     "Name": "google",
-    "Text": "www.google.com",
-    "LocationX": 215,
+    "Text": "http://www.google.com",
+    "LocationX": 225,
     "LocationY": 360,
-    "Width": 60,
+    "Width": 50,
     "Height": 35,
     "TextAlignment": "right",
     "Tooltip": "syslink1",

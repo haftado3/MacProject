@@ -221,6 +221,36 @@ class viewMaker{
                 //rich.usesSingleLineMode = false
                 //rich.lineBreakMode = .byWordWrapping
             }
+            if(SJ.getComponentType(n: n) == "syslink"){
+                let link = NSTextField()
+                link.isBezeled = false
+                link.drawsBackground = false
+                link.isEditable = false
+                link.isSelectable = true
+                link.allowsEditingTextAttributes = true
+                let url = URL(string: SJ.getText(n: n))
+                let linkTextAttributes: [NSAttributedStringKey: Any] = [
+                    NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue,
+                    NSAttributedStringKey.foregroundColor: NSColor.blue,
+                    NSAttributedStringKey.link: url as Any
+                ]
+                let string = SJ.getName(n: n)
+                link.attributedStringValue = NSAttributedString(string: string, attributes: linkTextAttributes)
+                link.setFrameOrigin(NSPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n)))
+                link.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
+                window.contentView?.addSubview(link)
+                
+            }
+            if(SJ.getComponentType(n: n) == "line"){
+                let line = NSBox()
+                line.boxType = .separator
+                line.setFrameOrigin(NSPoint(x: SJ.getLocationX(n: n), y: SJ.getLocationY(n: n)))
+                line.setFrameSize(NSSize(width: SJ.getWidth(n: n), height: SJ.getHeight(n: n)))
+                window.contentView?.addSubview(line)
+            }
+            if(SJ.getComponentType(n: n) == "statusbar"){
+                
+            }
             // other components will be place here
         }
     }
