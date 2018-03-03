@@ -51,6 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
 }
 
+
 class windowDelegate: NSObject,NSWindowDelegate {
     func windowWillClose(_ notification: Notification) {
         exit(0)

@@ -1,7 +1,16 @@
 import Cocoa
 
-class viewMaker{
-    
+class viewMaker : NSObject{
+    var nameArray : [String] = ["ali","hasan"]
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        var result = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "MyView"), owner: self) as? NSTextField
+        if result == nil {
+            result = NSTextField()
+            result?.identifier = NSUserInterfaceItemIdentifier(rawValue: "MyView")
+        }
+        result?.stringValue = nameArray[row]
+        return result
+    }
     func make(json : Dictionary<String,Any> , window : NSWindow){
         let SJ : swift_json_parser = swift_json_parser() //new instance of class swift_json_parser
         SJ.parser(json: json) //reading json file and putting it into struct array
@@ -190,13 +199,23 @@ class viewMaker{
                 treeView.selectionHighlightStyle = .sourceList
                 treeView.allowsColumnReordering = true
                 treeView.allowsColumnReordering = true
+//                let datasource : [String] = ["one","two","three"]
+//                treeView.dataSource = datasource as? NSOutlineViewDataSource
+//                treeView.reloadData()
+                treeView.gridStyleMask = .solidHorizontalGridLineMask
+                
                 
                 //a table column
                 let column = NSTableColumn.init()
-                column.title = "grid view"
+                column.title = "ID"
+                //column.bind(NSBindingName(rawValue: "hidden"), to: UserDefaults.standard, withKeyPath: "table column status", options: nil)
+               
+                
                 let column2 = NSTableColumn()
                 column2.title = "col 2"
                 column2.width = 100
+                column.isEditable = true
+                column2.isEditable = true
                 
                 //adding column to table
                 treeView.addTableColumn(column)
@@ -340,4 +359,6 @@ class viewMaker{
     
     
 }
+
+
 

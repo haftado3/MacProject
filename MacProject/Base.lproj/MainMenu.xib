@@ -678,6 +678,7 @@
                     </menu>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="-232" y="181"/>
         </menu>
         <window title="MacProject" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
@@ -688,7 +689,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
             </view>
-            <point key="canvasLocation" x="-13" y="537"/>
+            <point key="canvasLocation" x="-232" y="560"/>
         </window>
     </objects>
 </document>
